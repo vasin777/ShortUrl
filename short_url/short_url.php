@@ -24,7 +24,7 @@ else{
             $intval=($intval-$last)/$count;
             $result.=$letters[$last];
         }
-
+        //запись в базу данных
         mysqli_query($db,"INSERT INTO shorturl (url, url_key) VALUES ('$link', '$result') ");
         @$select = mysqli_fetch_assoc(mysqli_query($db,"SELECT * FROM shorturl WHERE url = '$link'"));
         $result = [
@@ -85,6 +85,10 @@ else{
             let mess = $('.mess');
             let btn = th.find('.btn');
             btn.addClass('progress-bar-striped progress-bar-animated');
+            /*
+            Данный запрос идет сам на себя так как все необходимы запросы в бд в этом же файле. 
+            Запрос передаёт данне из формы для дальнейшей их обработки и записи
+            */
             $.ajax({
                 url: '',
                 type: 'POST',
@@ -94,6 +98,9 @@ else{
                    // btn.text('Получить');
                 }
             });
+            /*таймер на выполнение следующего ajax запроса без перезагрузки страницы для успешного сохранения данных из первого запроса
+            Данный запрос выводи нам сообщение и готовую короткую ссылку
+            */
             setTimeout( function(){
             let url = $('#url').val();
             $.ajax({
