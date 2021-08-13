@@ -1,6 +1,6 @@
 <?php
 require_once 'mysql.php';
-
+//запрос выводит данные путем json для ajax запроса
 $link = $_POST['url'];
     @$select = mysqli_fetch_assoc(mysqli_query($db,"SELECT * FROM shorturl WHERE url = '$link'"));
     if($select){
